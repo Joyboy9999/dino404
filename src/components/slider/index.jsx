@@ -115,8 +115,8 @@ const data = [
     image: pic20,
   },
 ];
-
-const Slider = () => {
+// eslint-disable-next-line react/prop-types
+const Slider = ({walletAddress}) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const [popupMinting, setPopupMinting] = useState(false);
   const [width, setWidth] = useState(1024);

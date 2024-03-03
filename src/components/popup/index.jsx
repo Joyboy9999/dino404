@@ -11,6 +11,7 @@ const PopupMinting = ({walletAddress, popupMinting, setPopupMinting }) => {
   function mint(wallet) {
     console.log(wallet);
   } 
+  
   return (
     <>
       {popupMinting && (

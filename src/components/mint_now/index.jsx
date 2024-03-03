@@ -5,7 +5,8 @@ import bg from '../../assets/mint-now/bg.png'
 import PopupMinting from "../popup";
 import { useState } from "react";
 
-const MintNow = () => {
+// eslint-disable-next-line react/prop-types
+const MintNow = ({walletAddress}) => {
   const [popupMinting, setPopupMinting] = useState(false);
 
   const listItem = [

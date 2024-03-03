@@ -10,6 +10,7 @@ import {useState } from "react";
 
 function App() {
   const [walletAddress, setWalletAddress] = useState("");
+  
   return (
     <>
       <div className="w-screen max-w-full">

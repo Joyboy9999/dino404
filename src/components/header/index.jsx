@@ -6,9 +6,11 @@ import bridgeIcon from "../../../src/assets/icon-bridge.png";
 import walletIcon from "../../../src/assets/wallet.svg";
 import { useEffect, useState } from "react";
 
+// eslint-disable-next-line react/prop-types
 const Header = ({ setWalletAddress }) => {
   const [isScroll, setIsScroll] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [wallet, setWallet] = useState("")
   
 
   const listenScrollEvent = () => {
@@ -32,6 +34,7 @@ const Header = ({ setWalletAddress }) => {
 
   const updateFrontend = (account) => {
     const shortAddress = account.slice(0, 5) + "..." + account.slice(-6);
+    setWallet(account); // use the setWallet prop (if you want to use it in other components
     setWalletAddress(shortAddress); // use the setWalletAddress prop
   };
 
@@ -160,7 +163,7 @@ const Header = ({ setWalletAddress }) => {
               >
                 <img className="w-[22px] h-[22px] sm:mr-[8px]" src={walletIcon} />
                 <span className="hidden sm:inline-block">
-                  {walletAddress ? walletAddress : "Connect Wallet"}
+                  {wallet ? wallet : "Connect Wallet"}
                 </span>
               </button>
               <div
@@ -192,7 +195,7 @@ const Header = ({ setWalletAddress }) => {
             >
               <img className="w-[22px] h-[22px] sm:mr-[8px]" src={walletIcon} />
               <span className="hidden sm:inline-block">
-                {walletAddress ? walletAddress : "Connect Wallet"}
+                {wallet ? wallet : "Connect Wallet"}
               </span>
             </button>
           </div>
