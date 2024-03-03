@@ -23,7 +23,7 @@ function App() {
           <div className="sm:h-[900px] h-[1043px] lg:h-[800px] ">
             <AboutUs />
           </div>
-          <MintNow />
+          <MintNow walletAddress={walletAddress}/>
         </div>
 
         <div id="roadmap">
