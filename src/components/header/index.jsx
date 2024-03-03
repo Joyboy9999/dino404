@@ -4,14 +4,16 @@ import aboutUsIcon from "../../../src/assets/icon-about-us.png";
 import roadmapIcon from "../../../src/assets/icon-roadmap.png";
 import bridgeIcon from "../../../src/assets/icon-bridge.png";
 import walletIcon from "../../../src/assets/wallet.svg";
+
 import { useEffect, useState } from "react";
+
 
 // eslint-disable-next-line react/prop-types
 const Header = ({ setWalletAddress }) => {
   const [isScroll, setIsScroll] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [wallet, setWallet] = useState("")
-  
+
 
   const listenScrollEvent = () => {
     if (window.scrollY < 73) {
@@ -34,8 +36,8 @@ const Header = ({ setWalletAddress }) => {
 
   const updateFrontend = (account) => {
     const shortAddress = account.slice(0, 5) + "..." + account.slice(-6);
-    setWallet(account); // use the setWallet prop (if you want to use it in other components
-    setWalletAddress(shortAddress); // use the setWalletAddress prop
+    setWallet(shortAddress); // use the setWallet prop (if you want to use it in other components
+    setWalletAddress(account); // use the setWalletAddress prop
   };
 
   async function connectMM() {
@@ -47,7 +49,7 @@ const Header = ({ setWalletAddress }) => {
   }
 
   async function switchToLinea() {
-    const chainId = "0xe708"; // mainnet 0xe708
+    const chainId = "0xe704"; // mainnet 0xe708
     try {
       await ethereum.request({
         method: "wallet_switchEthereumChain",

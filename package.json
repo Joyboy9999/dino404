@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ether": "^0.0.9",
+    "ethers": "^5.7.2",
     "git": "^0.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "swiper": "^11.0.7"
+    "swiper": "^11.0.7",
+    "web3": "^4.5.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
