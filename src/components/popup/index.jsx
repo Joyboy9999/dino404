@@ -679,9 +679,9 @@ const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
     // Ngăn chặn sự kiện click từ việc lan rộng ra nền đen
     e.stopPropagation();
   };
-  useEffect(() => {
-    try{
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  
+  const provider = ((window.ethereum != null) ? new ethers.providers.Web3Provider(window.ethereum) : ethers.providers.getDefaultProvider());
+  if (provider != null){
     const contract = new ethers.Contract(tokenAddress, tokenABI, provider);
     contract
       .whitelist(walletAddress)
@@ -694,9 +694,7 @@ const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
           setCanMint(false)
         }
       });
-     } catch(err){
-    }
-}, [])
+  }
 
   const handleButtonMint = useCallback(() => {
     if (!walletAddress) {

@@ -140,7 +140,7 @@ const Header = ({ setWalletAddress }) => {
                 </a>
               </li>
               <li className="h-full gap-2 cursor-pointer hover:text-blue-500">
-                <a href="#about" className="flex items-center">
+                <a href="#about-us" className="flex items-center">
                   <img className="mr-2" src={aboutUsIcon} />
                   <span>About Us</span>
                 </a>
@@ -152,7 +152,7 @@ const Header = ({ setWalletAddress }) => {
                 </a>
               </li>
               <li className="h-full gap-2 cursor-pointer hover:text-blue-500">
-                <a href="#bridge" className="flex items-center">
+                <a href="https://bridge.linea.build/" target="_blank" className="flex items-center">
                   <img className="mr-2" src={bridgeIcon} />
                   <span>Bridge</span>
                 </a>
