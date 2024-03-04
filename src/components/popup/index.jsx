@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import Collext13 from "../../assets/collect_13.png";
 import Ethe from "../../assets/ethe.png";
 import Delete from "../../assets/svgs/delete.svg";
@@ -673,10 +674,12 @@ async function mint(wallet) {
 }
 // eslint-disable-next-line react/prop-types
 const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
+  const [canMint, setCanMint] = useState(false)
   const handleContentClick = (e) => {
     // Ngăn chặn sự kiện click từ việc lan rộng ra nền đen
     e.stopPropagation();
   };
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const contract = new ethers.Contract(tokenAddress, tokenABI, provider);
   contract
@@ -685,10 +688,30 @@ const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
     .then((checkwl) => {
       if (checkwl) {
         console.log("You can mint");
+        setCanMint(true)
       } else {
-        console.log("You are not Eligible");
+        console.log("You are not Eligible")
+        setCanMint(false)
       }
     });
+
+  const handleButtonMint = useCallback(() => {
+    if (!walletAddress) {
+      setPopupMinting(false);
+      toast.error(`You haven't connected to the wallet yet`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    } else if (walletAddress) {
+      mint(walletAddress);
+    }
+  }, [walletAddress, setPopupMinting]);
 
   return (
     <>
@@ -830,16 +853,17 @@ const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
                     </li>
                   </ul>
                   <button
-                    onClick={() => mint(walletAddress)}
+                    onClick={handleButtonMint}
+                    disabled={walletAddress && !canMint}
                     style={{
                       fontWeight: "600",
                       padding: "12px 0px",
                       borderRadius: "8px",
                       lineHeight: "24px",
                     }}
-                    className="bg-[#7C9B7C] text-white uppercase text-[18px] w-full flex justify-center items-center opacity-90 hover:opacity-100 border-none transition-all active:opacity-80 active:border-none"
+                    className={`${(!walletAddress ? "bg-[#7C9B7C] text-white opacity-90 hover:opacity-100 border-none transition-all active:opacity-80" : canMint ? "bg-[#7C9B7C] text-white opacity-90 hover:opacity-100 border-none transition-all active:opacity-80" : "bg-gray-400 text-gray-600 hover:bg-gray-400 cursor-not-allowed")}  uppercase text-[18px] w-full flex justify-center items-center  active:border-none`}
                   >
-                    Mint Now
+                    {!walletAddress ? "Mint now" : canMint ? "Mint now" : "You are not Eligible"}
                   </button>
                 </div>
               </div>
