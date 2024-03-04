@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState,useEffect} from "react";
 import Collext13 from "../../assets/collect_13.png";
 import Ethe from "../../assets/ethe.png";
 import Delete from "../../assets/svgs/delete.svg";
@@ -631,9 +631,9 @@ async function mint(wallet) {
       });
       await transaction.wait();
 
-      console.log("Mint transaction successful");
+      console.log("Mint Successful");
       /// Hiệu ứng ở đây
-      toast.success("Mint transaction successful", {
+      toast.success("Mint Successful", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -646,7 +646,7 @@ async function mint(wallet) {
     } catch (error) {
       console.error("Failed to mint tokens:", error);
       /// Hiệu ứng ở đây
-      toast.error(`Failed to mint tokens: ${error}`, {
+      toast.error(`Failed to mint tokens`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -679,21 +679,24 @@ const PopupMinting = ({ walletAddress, popupMinting, setPopupMinting }) => {
     // Ngăn chặn sự kiện click từ việc lan rộng ra nền đen
     e.stopPropagation();
   };
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const contract = new ethers.Contract(tokenAddress, tokenABI, provider);
-  contract
-    .whitelist(walletAddress)
-
-    .then((checkwl) => {
-      if (checkwl) {
-        console.log("You can mint");
-        setCanMint(true)
-      } else {
-        console.log("You are not Eligible")
-        setCanMint(false)
-      }
-    });
+  useEffect(() => {
+    try{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(tokenAddress, tokenABI, provider);
+    contract
+      .whitelist(walletAddress)
+      .then((checkwl) => {
+        if (checkwl) {
+          console.log("You can mint");
+          setCanMint(true)
+        } else {
+          console.log("You are not Eligible")
+          setCanMint(false)
+        }
+      });
+     } catch(err){
+    }
+}, [])
 
   const handleButtonMint = useCallback(() => {
     if (!walletAddress) {
